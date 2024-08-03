@@ -165,9 +165,10 @@ stdenv.mkDerivation rec {
   base = callPackage ./base.nix {
     inherit stable testing baseName;
     inherit kicadSrc kicadVersion;
-    inherit wxGTK python wxPython;
+    inherit wxGTK wxPython;
     inherit withNgspice withScripting withI18n;
     inherit debug sanitizeAddress sanitizeThreads;
+    python311 = python;
   };
 
   inherit pname;

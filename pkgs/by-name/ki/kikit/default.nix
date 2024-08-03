@@ -3,8 +3,8 @@
 , lib
 , fetchFromGitHub
 , bats
-, buildPythonApplication
 , pythonOlder
+, python311
 , callPackage
 , kicad
 , numpy
@@ -21,8 +21,9 @@
 }:
 let
   solidpython = callPackage ./solidpython { };
+  kicad_ = kicad.override { inherit python311; };
 in
-buildPythonApplication rec {
+python311.pkgs.buildPythonApplication rec {
   pname = "kikit";
   version = "1.5.0";
   format = "setuptools";
@@ -37,7 +38,7 @@ buildPythonApplication rec {
   };
 
   propagatedBuildInputs = [
-    kicad
+    # kicad
     numpy
     click
     markdown2
@@ -54,6 +55,9 @@ buildPythonApplication rec {
     # https://github.com/yaqwsx/KiKit/issues/576
     solidpython
   ];
+
+
+  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ kicad_ ] }" ];
 
   nativeBuildInputs = [
     versioneer

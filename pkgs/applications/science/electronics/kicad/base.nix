@@ -40,7 +40,7 @@
 , libdeflate
 
 , swig4
-, python
+, python311
 , wxPython
 , opencascade-occt_7_6
 , libngspice
@@ -169,7 +169,7 @@ stdenv.mkDerivation rec {
     openssl
     boost
     swig4
-    python
+    python311
     unixODBC
     libdeflate
     opencascade-occt
@@ -189,7 +189,7 @@ stdenv.mkDerivation rec {
   installCheckTarget = "test";
 
   nativeInstallCheckInputs = [
-    (python.withPackages(ps: with ps; [
+    (python311.withPackages(ps: with ps; [
       numpy
       pytest
       cairosvg
